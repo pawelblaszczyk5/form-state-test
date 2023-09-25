@@ -1,9 +1,12 @@
 declare module "react-dom" {
-  declare const experimental_useFormState: <TState, TPayload>(
-    action: (previousState: TState, payload: TPayload) => Promise<TState>,
-    initialState: TState,
-    url?: string
-  ) => [TState, (payload: TPayload) => void];
-
-  export { experimental_useFormState };
+  function experimental_useFormState<State>(
+    action: (state: State) => Promise<State>,
+    initialState: State,
+    permalink?: string
+  ): [state: State, dispatch: () => void];
+  function experimental_useFormState<State, Payload>(
+    action: (state: State, payload: Payload) => Promise<State>,
+    initialState: State,
+    permalink?: string
+  ): [state: State, dispatch: (payload: Payload) => void];
 }
