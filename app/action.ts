@@ -1,12 +1,16 @@
 "use server";
 
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
+
+const delay = async (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 export const mutateSomething = async (
   previousState: { value: number; error?: string },
   payload: FormData
 ) => {
+  await delay(2000);
+
   const value = payload.get("value");
 
   if (typeof value !== "string" || value === "")
