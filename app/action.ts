@@ -4,10 +4,26 @@ import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 export const mutateSomething = async (
-  previousState: number,
+  previousState: { value: number; error?: string },
   payload: FormData
 ) => {
-  const newValue = previousState + Number(payload.get("value"));
+  const value = payload.get("value");
+
+  if (typeof value !== "string" || value === "")
+    return { value: previousState.value, error: "This field is required" };
+
+  const numericValue = Number(value);
+
+  if (Number.isNaN(numericValue))
+    return { value: previousState.value, error: "This field must be a number" };
+
+  if (numericValue > 25)
+    return {
+      value: previousState.value,
+      error: "This value can't be greater than 25",
+    };
+
+  const newValue = previousState.value + numericValue;
 
   if (newValue > 100) {
     revalidateTag("random");
@@ -15,5 +31,5 @@ export const mutateSomething = async (
     return redirect("/test");
   }
 
-  return newValue;
+  return { value: newValue };
 };
