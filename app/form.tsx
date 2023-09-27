@@ -2,7 +2,16 @@
 
 import { mutateSomething } from "#/app/action";
 import { experimental_useOptimistic } from "react";
-import { experimental_useFormState } from "react-dom";
+import {
+  experimental_useFormState,
+  experimental_useFormStatus,
+} from "react-dom";
+
+const SubmitButton = () => {
+  const { pending } = experimental_useFormStatus();
+
+  return <button aria-disable={pending}>{pending ? "WIP" : "Submit"}</button>;
+};
 
 export const Form = () => {
   const [state, dispatch] = experimental_useFormState(mutateSomething, {
@@ -60,7 +69,7 @@ export const Form = () => {
             </span>
           )}
         </div>
-        <button>Submit</button>
+        <SubmitButton></SubmitButton>
       </form>
     </>
   );
