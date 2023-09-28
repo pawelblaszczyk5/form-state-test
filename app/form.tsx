@@ -58,14 +58,14 @@ export const Form = () => {
           </label>
           <input
             className="border-2 border-sky-950 rounded appearance-none px-2 py-1"
-            aria-describedby={state.error ? "" : undefined}
+            aria-describedby={optimisticState.error ? "" : undefined}
             id="number"
             type="number"
             name="value"
           />
-          {state.error && (
+          {optimisticState.error && (
             <span className="text-rose-700" aria-live="polite">
-              {state.error}
+              {optimisticState.error}
             </span>
           )}
         </div>
