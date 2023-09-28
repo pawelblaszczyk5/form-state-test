@@ -3,6 +3,7 @@ const nextConfig = {
   experimental: {
     typedRoutes: true,
     serverActions: true,
+    optimizeServerReact: true,
   },
 };
 
