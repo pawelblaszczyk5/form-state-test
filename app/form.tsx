@@ -10,7 +10,7 @@ import {
 const SubmitButton = () => {
   const { pending } = experimental_useFormStatus();
 
-  return <button aria-disable={pending}>{pending ? "WIP" : "Submit"}</button>;
+  return <button aria-disabled={pending}>{pending ? "WIP" : "Submit"}</button>;
 };
 
 export const Form = () => {
